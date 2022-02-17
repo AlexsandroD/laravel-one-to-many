@@ -21,6 +21,7 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="content">Write the post Here</label>
                             <textarea class="form-control  @error('content') is-invalid @enderror" name="content" id="content" placeholder="content" value="{{ old('content') ? old('content') : $post->content }}"  placeholder rows="6"></textarea>
@@ -28,6 +29,21 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
+
+                        <div class="form-group">
+                            <label for="category">Categories</label>
+                            <select class="form-select" class="form-control  @error('category') is-invalid @enderror" name="category_id" id="category" >
+                                <option value="" {{ old("category_id") == "" ? "selected" : "" }}>Select a category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old("category_id", $post->category_id) == $category->id ? "selected" : "" }}>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                             @error('category_id')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                          <div class="form-group form-check">
                              @php
                                 $published = old('published') ? old('published') : $post->published;
@@ -39,6 +55,7 @@
                              @enderror
                          </div>
                          <button class="btn btn-primary" type="submit">modifica</button>
+                         <a class="btn btn-secondary " href="{{ route("posts.index") }}" role="button">Back</a>
                     </form>
                 </div>
             </div>

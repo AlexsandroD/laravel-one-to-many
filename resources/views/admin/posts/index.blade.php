@@ -18,6 +18,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Slug</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Category</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -27,6 +29,20 @@
                                     <td class="text-center">{{ $post->id }}</td>
                                     <td>{{ $post->title }}</td>
                                     <td>{{ $post->slug }}</td>
+                                    <td>
+                                        @if ($post->published)
+                                            <span class="badge badge-success m-3">Pubblicato</span>
+                                            @else
+                                            <span class="badge badge-secondary m-3">Bozza</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($post->category)
+                                            <span class="badge badge-info m-3">{{$post->category->name}}</span>
+                                        @else
+                                            <span class="badge badge-secondary m-3">None</span>
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         <a class="btn btn-primary" style=" min-width: 80px" href="{{ route("posts.show",$post->id) }}" role="button">Viualizza</a>
                                     </td>

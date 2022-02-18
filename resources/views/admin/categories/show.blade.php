@@ -7,22 +7,14 @@
             <div class="card">
                 <div class="card-header"><h3>{{ $category->name }}</h3></div>
                 <div class="card-body">
+
+
                     <div>
-                        <strong>Stato:</strong>
-                        @if ($category->published)
-                        <span class="badge badge-success m-3">Pubblicato</span>
-                        @else
-                        <span class="badge badge-secondary m-3">Bozza</span>
+                        @if($category->category)
+                        <strong>Category: {{ $category->category->name}}</strong>
                         @endif
                     </div>
-                    <div>
-
-                    @if($category->category)
-                        <strong>Category: {{ $category->category->name}}</strong>
-                    @endif
-
-                  </div>
-                   {{ $category->content }}
+                    {{ $category->content }}
 
                    <div class="d-flex my-2">
                        <a class="btn btn-info " href="{{ route("categories.edit",$category->id) }}" role="button">Edit</a>

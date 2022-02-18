@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Category;
 use App\Post;
 
@@ -13,7 +14,8 @@ class PostController extends Controller
         "title" => "required|string|max:100",
         "content"=>"required",
         "published" => "sometimes|accepted",
-        "category_id"=>"nullable|exists:categories,id|"
+        "category_id"=>"nullable|exists:categories,id",
+        "image" => "nullable|mimes:jpg,jpeg,png,gif,webp|max:2048"
     ];
     /**
      * Display a listing of the resource.
@@ -46,18 +48,20 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // validazione
+        $request->validate($this->validationRule);
 
-            $request->validate($this->validationRule);
+        // creazione del post
+        $data = $request->all();
+        $newPost = new Post ();
+        $newPost->title = $data['title'];
+        $newPost->content = $data['content'];
+        $newPost->category_id = $data['category_id'];
 
-            $data = $request->all();
-            $newPost = new Post ();
-            $newPost->title = $data['title'];
-            $newPost->content = $data['content'];
-            $newPost->category_id = $data['category_id'];
+        if( isset($data['published']) ) {
 
-            if( isset($data['published']) ) {
-                $newPost->published = true;
-            }
+            $newPost->published = true;
+        }
+
 
             $slug = Str::of($newPost->title)->slug("-");
             $count = 1;
@@ -68,13 +72,15 @@ class PostController extends Controller
             }
             $newPost->slug = $slug;
 
+            if( isset($data['image']) ) {
+                $path_image = Storage::put("uploads",$data['image']);
+                $newPost->image = $path_image;
+            }
+
             $newPost->save();
 
+            // redirect al post appena creato
             return redirect()->route("posts.show", $newPost->id);
-
-        // creazione del post
-
-        // redirect al post appena creato
     }
 
     /**
@@ -118,7 +124,6 @@ class PostController extends Controller
             $post->title = $data['title'];
             $post->content = $data['content'];
             $post->category_id = $data['category_id'];
-
             if( isset($data['published']) ) {
                 $post->published = true;
             }
@@ -131,6 +136,15 @@ class PostController extends Controller
                 $count++;
             }
             $post->slug = $slug;
+
+
+
+            if( isset($data['image']) ) {
+                Storage::delete($post->image);
+                $path_image = Storage::put("uploads",$data['image']);
+                $post->image = $path_image;
+            }
+
 
             $post->save();
 

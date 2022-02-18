@@ -13,7 +13,7 @@
 
                 <div class="card-body">
                     <table class="table table-dark">
-                        <thead class="table responsive text-center text-white">
+                        <thead class="table responsive  text-white">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Title</th>
@@ -28,16 +28,16 @@
                                     <td>{{ $post->title }}</td>
                                     <td>{{ $post->slug }}</td>
                                     <td class="text-center">
-                                        <a class="btn btn-primary" href="{{ route("posts.show",$post->id) }}" role="button">Viualizza</a>
+                                        <a class="btn btn-primary" style=" min-width: 80px" href="{{ route("posts.show",$post->id) }}" role="button">Viualizza</a>
                                     </td>
                                      <td class="text-center">
-                                        <a class="btn btn-info" href="{{ route("posts.edit",$post->id) }}" role="button">Edit</a>
+                                        <a class="btn btn-info" style=" min-width: 80px" href="{{ route("posts.edit",$post->id) }}" role="button">Edit</a>
                                     </td>
                                     <td>
                                        <form action="{{route('posts.destroy', $post->id)}}" method="POST">
                                             @csrf
                                             @method("DELETE")
-                                             <button type="submit" class="btn btn-danger">Delete</button>
+                                             <button type="submit" class="btn btn-danger" style=" min-width: 80px">Delete</button>
                                         </form>
                                     </td>
                                 </tr>

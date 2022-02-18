@@ -48,8 +48,9 @@
                              @php
                                 $published = old('published') ? old('published') : $post->published;
                              @endphp
-                             <input type="checkbox" class="form-check-input" class="form-control  @error('published') is-invalid @enderror"  name="published" id="published  " value="{{  $published ? 'checked' : '' }}">
+                             <input type="checkbox" class="form-check-input" class="form-control  @error('published') is-invalid @enderror"  name="published" id="published " {{  $published ? 'checked' : '' }}>
                              <label class="form-check-label" for="published">Pubblica</label>
+
                              @error('published')
                                 <div class="alert alert-danger">{{ $message }}</div>
                              @enderror

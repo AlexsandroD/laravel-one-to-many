@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form action="{{route("posts.store")}}" method="POST">
+                    <form action="{{route("posts.store")}}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
@@ -20,15 +20,15 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-
+                        {{--   content --}}
                         <div class="form-group">
                             <label for="content">Write the post Here</label>
-                            <textarea class="form-control  @error('content') is-invalid @enderror" name="content" id="content" placeholder="content" value="{{ old('content') }}"  placeholder rows="6"></textarea>
+                            <textarea class="form-control  @error('content') is-invalid @enderror" name="content" id="content" placeholder="content" value="{{ old('content') }}"placeholder rows="6"></textarea>
                             @error('content')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-
+                        {{-- select --}}
                         <div class="form-group">
                             <label for="category">Categories</label>
                             <select class="form-select" class="form-control  @error('category') is-invalid @enderror" name="category_id" id="category" >
@@ -42,14 +42,26 @@
                             @enderror
                         </div>
 
+
+                        {{-- checkbox --}}
                          <div class="form-group form-check">
-                             <input type="checkbox" class="form-check-input"class = "form-control  @error('published') is-invalid @enderror"  name="published" id="published  " value="{{ old('published') ? 'checked' : '' }}">
+                             <input type="checkbox" class="form-check-input"class = "form-control  @error('published') is-invalid @enderror"  name="published" id="published " {{ old('published') ? 'checked' : '' }}>
                              <label class="form-check-label" for="published">Pubblica</label>
                              @error('published')
                                 <div class="alert alert-danger">{{ $message }}</div>
                              @enderror
                          </div>
-                         <button class="btn btn-primary" type="submit">Add Post</button>
+
+
+                         {{-- add image upolad --}}
+                         <div class="form-group">
+                             <label for="image">add image</label>
+                             <input type="file" class="form-control-file" id="image" name="image">
+                         </div>
+
+                     <button class="btn btn-primary" type="submit">Add Post</button>
+
+
                     </form>
                 </div>
             </div>

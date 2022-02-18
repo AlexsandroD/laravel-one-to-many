@@ -7,21 +7,28 @@
             <div class="card">
                 <div class="card-header"><h3>{{ $post->title }}</h3></div>
                 <div class="card-body">
+
+                    <div>
+                        @if ($post->image)
+                            <img src="{{asset('storage/'. $post->image) }}" alt="post image">
+                        @endif
+                    </div>
+
                     <div>
                         <strong>Stato:</strong>
                         @if ($post->published)
-                        <span class="badge badge-success m-3">Pubblicato</span>
+                         <span class="badge badge-success m-3">Pubblicato</span>
                         @else
-                        <span class="badge badge-secondary m-3">Bozza</span>
+                         <span class="badge badge-secondary m-3">Bozza</span>
                         @endif
                     </div>
-                    <div>
 
-                    @if($post->category)
-                        <strong>Category: {{ $post->category->name}}</strong>
-                    @endif
-                    
-                  </div>
+                    <div>
+                        @if($post->category)
+                            <strong>Category: {{ $post->category->name}}</strong>
+                        @endif
+                    </div>
+
                    {{ $post->content }}
 
                    <div class="d-flex my-2">

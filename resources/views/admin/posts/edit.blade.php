@@ -24,7 +24,7 @@
 
                         <div class="form-group">
                             <label for="content">Write the post Here</label>
-                            <textarea class="form-control  @error('content') is-invalid @enderror" name="content" id="content" placeholder="content" value="{{ old('content') ? old('content') : $post->content }}"  placeholder rows="6"></textarea>
+                            <textarea class="form-control  @error('content') is-invalid @enderror" name="content" id="content" placeholder="content" placeholder rows="6">{{ old('content') ? old('content') : $post->content }}</textarea>
                             @error('content')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
